@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-content="page-title">Impact of Heat</title>
+    <meta name="description" data-content="page-description" content="Exploring the effects and implications of heat in our environment">
+    
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #ffd460;
+            --text-color: #fff;
+            --light-bg: #23234b;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(.4,2,.6,1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(26, 26, 46, 0.98); /* semi-transparent dark background for contrast */
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .nav li {
+            margin: 0 1rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--border-radius);
+            background: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: none;
+        }
+
+        .nav a:hover, .nav a:focus {
+            background-color: var(--accent-color);
+            color: #1a1a2e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e94560 0%, #ffd460 100%);
+            color: var(--text-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1.5px 0 #fff2;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(90deg, #fff 30%, #ffd460 70%, #e94560 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            text-align: center;
+            color: #fff;
+            opacity: 0.95;
+        }
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: 40px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+        .scroll-indicator span {
+            display: block;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            border-bottom: none;
+            border-right: none;
+            transform: rotate(-45deg);
+            margin-bottom: 6px;
+            animation: bounce 1.5s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-45deg); }
+            50% { transform: translateY(12px) rotate(-45deg); }
+        }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+        }
+
+        /* Content Grid */
+        .content-grid {
+            padding: 4rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Media Section */
+        .media-section {
+            background: var(--light-bg);
+            padding: 4rem 0;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-container {
+            position: relative;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-placeholder:hover {
+            opacity: 0.9;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav li {
+                margin: 0.25rem 0;
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+    </style>
+    <!-- D3.js CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+   
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="#home" data-content="nav-home">Home</a></li>
+                <li><a href="#overview" data-content="nav-overview">Overview</a></li>
+                <li><a href="#data" data-content="nav-data">Data</a></li>
+                <li><a href="#solutions" data-content="nav-solutions">Solutions</a></li>
+                <li><a href="#resources" data-content="nav-resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home" data-aos="fade-in">
+        <div class="container">
+            <h2 class="hero-title" data-aos="fade-up" data-aos-delay="100">Impact of Extreme Heat</h2>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">Exploring the urgent consequences of rising temperatures on our planet, society, and future. Scroll down to discover more.</p>
+        </div>
+        <div class="scroll-indicator" data-aos="fade-in" data-aos-delay="1200">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Interactive Stakeholder Map Section -->
+    <section class="interactive-map-section" id="stakeholder-map">
+      <div class="interactive-map">
+        <img src="ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
+        <!-- Pins positioned for likely personas in the image -->
+        <button class="pin" style="top: 65%; left: 8%;" aria-label="Elderly Care"></button>
+        <button class="pin" style="top: 60%; left: 20%;" aria-label="Firefighter"></button>
+        <button class="pin" style="top: 60%; left: 28%;" aria-label="Police Officer"></button>
+        <button class="pin" style="top: 62%; left: 36%;" aria-label="Doctor"></button>
+        <button class="pin" style="top: 62%; left: 48%;" aria-label="Businesswoman"></button>
+        <button class="pin" style="top: 65%; left: 58%;" aria-label="Delivery Worker"></button>
+        <button class="pin" style="top: 62%; left: 70%;" aria-label="Paramedic"></button>
+        <button class="pin" style="top: 65%; left: 80%;" aria-label="Street Vendor"></button>
+        <!-- Add more pins as needed -->
+      </div>
+      <!-- Modal for content -->
+      <div id="modal" class="modal" style="display:none;">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="modal-body"></div>
+        </div>
+      </div>
+    </section>
+    <style>
+      .interactive-map-section {
+        width: 100vw;
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0;
+        position: relative;
+      }
+      .interactive-map {
+        position: relative;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .background-img {
+        width: 100%;
+        display: block;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      }
+      .pin {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #ffd460;
+        border: 2px solid #e94560;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s;
+        z-index: 2;
+      }
+      .pin:hover, .pin:focus {
+        transform: scale(1.2);
+        box-shadow: 0 0 8px #e94560;
+      }
+      .modal {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 16px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+      }
+      .close {
+        position: absolute;
+        top: 1rem; right: 1rem;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+      .mindmap-svg {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 3;
+      }
+      .mindmap-node {
+        cursor: pointer;
+        pointer-events: all;
+        transition: filter 0.2s;
+      }
+      .mindmap-node:hover {
+        filter: drop-shadow(0 0 8px #e94560);
+      }
+      .mindmap-label {
+        font-size: 1rem;
+        font-weight: 600;
+        fill: #23234b;
+        text-anchor: middle;
+        pointer-events: none;
+      }
+      #close-mindmap {
+        position: absolute;
+        top: 12px;
+        right: 24px;
+        z-index: 10;
+        font-size: 2rem;
+        background: #ffd460;
+        border: 2px solid #e94560;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        line-height: 36px;
+        text-align: center;
+        padding: 0;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const pins = document.querySelectorAll('.pin');
+        const modal = document.getElementById('modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.querySelector('.close');
+        const content = {
+          'Elderly Care': '<h2>Elderly Care</h2><p>Information, video, and data about elderly care in extreme heat.</p>',
+          'Firefighter': '<h2>Fire Department</h2><p>Information, video, and data about firefighters and emergency response.</p>',
+          'Police Officer': '<h2>Police & Security</h2><p>Information, video, and data about police and security roles.</p>',
+          'Doctor': '<h2>Healthcare Workers</h2><p>Information, video, and data about healthcare workers.</p>',
+          'Businesswoman': '<h2>Workers & Services</h2><p>Information, video, and data about business and services.</p>',
+          'Delivery Worker': '<h2>Delivery & Street Vendors</h2><p>Information, video, and data about delivery workers and street vendors.</p>',
+        };
+        pins.forEach(pin => {
+          pin.addEventListener('click', () => {
+            const label = pin.getAttribute('aria-label');
+            modalBody.innerHTML = content[label] || '<p>No content yet.</p>';
+            modal.style.display = 'flex';
+          });
+        });
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+      });
+    </script>
+
+    <!-- D3 Mindmap for Doctor persona -->
+    <script>
+      // D3 Mindmap for Doctor persona
+      function showDoctorMindmap(pinRect) {
+        // Remove any existing mindmap SVG and close button
+        d3.select('.mindmap-svg').remove();
+        const oldBtn = document.getElementById('close-mindmap');
+        if (oldBtn) oldBtn.remove();
+        // Get the interactive map container
+        const map = document.querySelector('.interactive-map');
+        const svg = d3.select(map)
+          .append('svg')
+          .attr('class', 'mindmap-svg')
+          .attr('width', map.offsetWidth)
+          .attr('height', map.offsetHeight);
+        // Center of the Doctor pin (relative to map)
+        const pinCenter = {
+          x: pinRect.left + pinRect.width/2 - map.getBoundingClientRect().left,
+          y: pinRect.top + pinRect.height/2 - map.getBoundingClientRect().top
+        };
+        // Subtopics for Doctor
+        const subtopics = [
+          { label: 'Emergency Medicine' },
+          { label: 'Pediatrics' },
+          { label: 'Heatwave Impact' },
+          { label: 'Public Health' }
+        ];
+        // Layout subtopics in a circle
+        const radius = 120;
+        subtopics.forEach((d, i) => {
+          const angle = (i / subtopics.length) * 2 * Math.PI;
+          d.x = pinCenter.x + radius * Math.cos(angle);
+          d.y = pinCenter.y + radius * Math.sin(angle);
+        });
+        // Draw lines
+        svg.selectAll('line')
+          .data(subtopics)
+          .enter()
+          .append('line')
+          .attr('x1', pinCenter.x)
+          .attr('y1', pinCenter.y)
+          .attr('x2', pinCenter.x)
+          .attr('y2', pinCenter.y)
+          .attr('stroke', '#e94560')
+          .attr('stroke-width', 2)
+          .transition()
+          .duration(600)
+          .attr('x2', d => d.x)
+          .attr('y2', d => d.y);
+        // Draw subtopic bubbles
+        const nodes = svg.selectAll('g.node')
+          .data(subtopics)
+          .enter()
+          .append('g')
+          .attr('class', 'mindmap-node')
+          .attr('transform', `translate(${pinCenter.x},${pinCenter.y})`)
+          .on('click', (event, d) => {
+            // Show modal or content for subtopic
+            document.getElementById('modal-body').innerHTML = `<h2>${d.label}</h2><p>Content for ${d.label}.</p>`;
+            document.getElementById('modal').style.display = 'flex';
+          });
+        nodes.append('circle')
+          .attr('r', 0)
+          .attr('fill', '#ffd460')
+          .attr('stroke', '#e94560')
+          .attr('stroke-width', 2)
+          .transition()
+          .duration(600)
+          .attr('r', 38)
+          .attr('fill', '#ffd460');
+        nodes.append('text')
+          .attr('class', 'mindmap-label')
+          .attr('y', 6)
+          .text(d => d.label);
+        nodes.transition()
+          .duration(600)
+          .attr('transform', d => `translate(${d.x},${d.y})`);
+        // Add a close button for the mindmap
+        if (!document.getElementById('close-mindmap')) {
+          const closeBtn = document.createElement('button');
+          closeBtn.id = 'close-mindmap';
+          closeBtn.textContent = '×';
+          closeBtn.onclick = () => {
+            d3.select('.mindmap-svg').remove();
+            closeBtn.remove();
+          };
+          map.appendChild(closeBtn);
+        }
+      }
+      // Patch the Doctor pin to show the mindmap instead of modal
+      document.addEventListener('DOMContentLoaded', function() {
+        const pins = document.querySelectorAll('.pin');
+        pins.forEach(pin => {
+          if (pin.getAttribute('aria-label') === 'Doctor') {
+            pin.addEventListener('click', function(e) {
+              e.stopPropagation();
+              // Get pin position
+              const rect = pin.getBoundingClientRect();
+              showDoctorMindmap(rect);
+            });
+          }
+        });
+      });
+    </script>
+
+    <!-- Content Grid Section -->
+    <section class="content-grid" id="overview">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-content="overview-title" data-aos="fade-up">Key Areas of Impact</h2>
+                <p data-content="overview-description" data-aos="fade-up" data-aos-delay="100">Discover how heat affects different aspects of our lives and environment</p>
+            </div>
+            
+            <div class="grid">
+                <!-- CUSTOMIZE: Add your own content cards -->
+                <div class="card" data-aos="fade-up">
+                    <img src="ImapctofHeatMain.png" alt="Environmental Impact" class="card-image" data-content="card1-image" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card-content">
+                        <h3 data-content="card1-title" data-aos="fade-up" data-aos-delay="200">Environmental Effects</h3>
+                        <p data-content="card1-description" data-aos="fade-up" data-aos-delay="300">Analysis of how increased temperatures affect ecosystems, wildlife, and natural processes.</p>
+                        <a href="#" class="btn" data-content="card1-cta" data-aos="fade-up" data-aos-delay="400">Read More</a>
+                    </div>
+                </div>
+
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="ImapctOfHearMain2.png" alt="Social Impact" class="card-image" data-content="card2-image" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card-content">
+                        <h3 data-content="card2-title" data-aos="fade-up" data-aos-delay="300">Social Consequences</h3>
+                        <p data-content="card2-description" data-aos="fade-up" data-aos-delay="400">Understanding the human cost and social implications of rising temperatures.</p>
+                        <a href="#" class="btn" data-content="card2-cta" data-aos="fade-up" data-aos-delay="500">Read More</a>
+                    </div>
+                </div>
+
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="ImpactOfHeatHomePage2.png" alt="Economic Impact" class="card-image" data-content="card3-image" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card-content">
+                        <h3 data-content="card3-title" data-aos="fade-up" data-aos-delay="400">Economic Impact</h3>
+                        <p data-content="card3-description" data-aos="fade-up" data-aos-delay="500">Economic costs and opportunities arising from climate change and heat effects.</p>
+                        <a href="#" class="btn" data-content="card3-cta" data-aos="fade-up" data-aos-delay="600">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section class="media-section" id="data">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-content="media-title" data-aos="fade-up">Multimedia Resources</h2>
+                <p data-content="media-description" data-aos="fade-up" data-aos-delay="100">Videos, presentations, and interactive content about heat impact</p>
+            </div>
+            
+            <div class="media-grid">
+                <!-- CUSTOMIZE: Replace with your own videos -->
+                <div class="video-container" data-aos="fade-up">
+                    <div class="video-placeholder" data-content="video1-placeholder" data-aos="zoom-in" data-aos-delay="100">
+                        <span>🎥 Click to Play Video 1</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 data-content="video1-title" data-aos="fade-up" data-aos-delay="200">Temperature Trends Analysis</h3>
+                        <p data-content="video1-description" data-aos="fade-up" data-aos-delay="300">Visual representation of global temperature changes over time.</p>
+                    </div>
+                </div>
+
+                <div class="video-container" data-aos="fade-up" data-aos-delay="100">
+                    <div class="video-placeholder" data-content="video2-placeholder" data-aos="zoom-in" data-aos-delay="200">
+                        <span>🎥 Click to Play Video 2</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 data-content="video2-title" data-aos="fade-up" data-aos-delay="300">Impact Assessment</h3>
+                        <p data-content="video2-description" data-aos="fade-up" data-aos-delay="400">Comprehensive review of heat impact on various sectors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p data-content="footer-text">&copy; 2024 Impact of Heat Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+        // Configuration object - CUSTOMIZE THIS for your content
+        const contentConfig = {
+            // Page metadata
+            'page-title': 'Impact of Heat',
+            'page-description': 'Exploring the effects and implications of heat in our environment',
+            
+            // Header content
+            'main-title': 'Impact of Heat',
+            'main-subtitle': 'Understanding the effects of rising temperatures on our world',
+            
+            // Navigation
+            'nav-home': 'Home',
+            'nav-overview': 'Overview', 
+            'nav-data': 'Data',
+            'nav-solutions': 'Solutions',
+            'nav-resources': 'Resources',
+            
+            // Hero section
+            'hero-title': 'Impact of Extreme Heat',
+            'hero-description': 'Exploring the urgent consequences of rising temperatures on our planet, society, and future. Scroll down to discover more.',
+            'hero-image': 'ImpactOfHeatHomePage.png', // Change this to your hero image
+            'cta-primary': 'Learn More',
+            'cta-secondary': 'View Data',
+            
+            // Overview section
+            'overview-title': 'Key Areas of Impact',
+            'overview-description': 'Discover how heat affects different aspects of our lives and environment',
+            
+            // Content cards
+            'card1-title': 'Environmental Effects',
+            'card1-description': 'Analysis of how increased temperatures affect ecosystems, wildlife, and natural processes.',
+            'card1-image': 'ImapctofHeatMain.png', // Change to your image
+            'card1-cta': 'Read More',
+            
+            'card2-title': 'Social Consequences',
+            'card2-description': 'Understanding the human cost and social implications of rising temperatures.',
+            'card2-image': 'ImapctOfHearMain2.png', // Change to your image
+            'card2-cta': 'Read More',
+            
+            'card3-title': 'Economic Impact',
+            'card3-description': 'Economic costs and opportunities arising from climate change and heat effects.',
+            'card3-image': 'ImpactOfHeatHomePage2.png', // Change to your image
+            'card3-cta': 'Read More',
+            
+            // Media section
+            'media-title': 'Multimedia Resources',
+            'media-description': 'Videos, presentations, and interactive content about heat impact',
+            
+            'video1-title': 'Temperature Trends Analysis',
+            'video1-description': 'Visual representation of global temperature changes over time.',
+            'video1-placeholder': '🎥 Click to Play Video 1',
+            
+            'video2-title': 'Impact Assessment', 
+            'video2-description': 'Comprehensive review of heat impact on various sectors.',
+            'video2-placeholder': '🎥 Click to Play Video 2',
+            
+            // Footer
+            'footer-text'
