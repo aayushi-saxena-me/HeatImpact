@@ -389,7 +389,11 @@
         </div>
     </section>
 
-    <!-- Blank Panel Section (for future images) -->
+    <!-- Blank Panel Section for Future Images -->
+<section class="panel blank-panel" id="blank-panel-images" style="min-height:100vh; width:100vw; background:#f0f0f0; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+  <!-- Future images can be embedded here -->
+</section>
+
 <!-- Blank Panel Section for Future Video -->
 <section class="panel blank-panel" id="blank-panel-video" style="min-height:100vh; width:100vw; background:#000; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
   <video id="blank-panel-video-content" class="panel-video" autoplay muted loop playsinline style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
@@ -681,3 +685,100 @@
             // Footer
             'footer-text': '© 2024 Impact of Heat Project. All rights reserved.'
         }
+
+    </script>
+    <style>
+        #blank-panel-images {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pop-img {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.7s, transform 0.7s;
+            max-width: 450px;
+            max-height: 450px;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .pop-img.visible {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageSection = document.getElementById('blank-panel-images');
+            const imagePaths = [
+                'Media/StartHere/CNN1-1.png',
+                'Media/StartHere/CNN2-1.png',
+                'Media/StartHere/FoxWeather1-1.png',
+                'Media/StartHere/NYT1-1.png',
+                'Media/StartHere/SCIAM1-1.png',
+                'Media/StartHere/TheWeatherChannel1-1.png',
+                'Media/StartHere/Time1-1.png',
+                'Media/StartHere/Truthout1-1.png',
+                'Media/StartHere/WashingtonPost1-1.png'
+            ];
+
+            const images = imagePaths.map(path => {
+                const img = document.createElement('img');
+                img.src = path;
+                img.className = 'pop-img';
+                img.style.width = `${Math.random() * (450 - 350) + 350}px`;
+                img.style.height = 'auto';
+                imageSection.appendChild(img);
+                return img;
+            });
+
+            function positionImages() {
+                const positions = [];
+                images.forEach(img => {
+                    let top, left, overlap;
+                    do {
+                        overlap = false;
+                        top = Math.random() * 80;
+                        left = Math.random() * 80;
+                        for (const pos of positions) {
+                            const distance = Math.sqrt(Math.pow(pos.top - top, 2) + Math.pow(pos.left - left, 2));
+                            if (distance < 20) { // Reverted minimum distance to 20
+                                overlap = true;
+                                break;
+                            }
+                        }
+                    } while (overlap);
+                    positions.push({ top, left });
+                    img.style.top = `${top}%`;
+                    img.style.left = `${left}%`;
+                });
+            }
+
+            positionImages();
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        images.forEach((img, index) => {
+                            setTimeout(() => {
+                                img.classList.add('visible');
+                            }, index * 500); // 500ms delay between each image
+                        });
+                    } else {
+                        images.forEach(img => img.classList.remove('visible'));
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(imageSection);
+        });
+    </script>
+
+</body>
+</html>
