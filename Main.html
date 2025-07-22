@@ -389,33 +389,19 @@
         </div>
     </section>
 
-    <!-- Panel 1: Fullscreen Video with Audio Button -->
-  <section class="panel video-panel" id="panel1">
-    <video id="panel1-video" class="panel-video" autoplay muted loop playsinline>
-      <source src="../IntroHCMDraft.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <button id="audio-toggle" class="audio-toggle" aria-label="Toggle audio">🔇</button>
-  </section>
-
     <!-- Blank Panel Section (for future images) -->
-<section class="panel blank-panel" id="blank-panel" style="min-height:100vh; width:100vw; background:#fff; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-    <img src="../Images+Visuals/StartHere/CNN1-1.png" class="pop-img" data-img="1" alt="Image 1" />
-    <img src="../Images+Visuals/StartHere/CNN2-1.png" class="pop-img" data-img="2" alt="Image 2" />
-    <img src="../Images+Visuals/StartHere/NYT1-1.png" class="pop-img" data-img="3" alt="Image 3" />
-    <img src="../Images+Visuals/StartHere/FoxWeather1-1.png" class="pop-img" data-img="4" alt="Image 4" />
-    <img src="../Images+Visuals/StartHere/TheWeatherChannel1-1.png" class="pop-img" data-img="5" alt="Image 5" />
-    <img src="../Images+Visuals/StartHere/WashingtonPost1-1.png" class="pop-img" data-img="6" alt="Image 6" />
-    <img src="../Images+Visuals/StartHere/Truthout1-1.png" class="pop-img" data-img="7" alt="Image 7" />
-    <img src="../Images+Visuals/StartHere/Time1-1.png" class="pop-img" data-img="8" alt="Image 8" />
-    <img src="../Images+Visuals/StartHere/SCIAM1-1.png" class="pop-img" data-img="9" alt="Image 9" />
-    <button class="pop-button" id="pop-button">Click Me</button>
+<!-- Blank Panel Section for Future Video -->
+<section class="panel blank-panel" id="blank-panel-video" style="min-height:100vh; width:100vw; background:#000; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+  <video id="blank-panel-video-content" class="panel-video" autoplay muted loop playsinline style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+    <source src="../Media/IntroHCMDraft.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </section>
 
     <!-- Interactive Stakeholder Map Section -->
     <section class="interactive-map-section" id="stakeholder-map">
       <div class="interactive-map">
-        <img src="../Images+Visuals/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
+        <img src="Media/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
         <!-- Pins positioned for likely personas in the image -->
         <button class="pin" style="top: 65%; left: 8%;" aria-label="Elderly Care"></button>
         <button class="pin" style="top: 60%; left: 20%;" aria-label="Firefighter"></button>
