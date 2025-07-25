@@ -1,0 +1,145 @@
+<!-- Blank Panel Section for Future Video -->
+<section class="panel blank-panel" id="blank-panel-video" style="min-height:100vh; width:100vw; background:#000; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+  <video id="blank-panel-video-content" class="panel-video" autoplay muted loop playsinline style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+    <source src="https://heatimpactmedia.s3.us-west-2.amazonaws.com/IntroHCMDraft.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</section>
+<!-- Interactive Stakeholder Map Section -->
+<section class="interactive-map-section" id="stakeholder-map">
+  <div class="interactive-map">
+    <img src="Media/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
+    <!-- Pins positioned for likely personas in the image -->
+    <button class="pin" style="top: 65%; left: 8%;" aria-label="Elderly Care"></button>
+    <button class="pin" style="top: 60%; left: 20%;" aria-label="Firefighter"></button>
+    <button class="pin" style="top: 60%; left: 28%;" aria-label="Police Officer"></button>
+    <button class="pin" style="top: 62%; left: 36%;" aria-label="Doctor"></button>
+    <button class="pin" style="top: 62%; left: 48%;" aria-label="Businesswoman"></button>
+    <button class="pin" style="top: 65%; left: 58%;" aria-label="Delivery Worker"></button>
+    <button class="pin" style="top: 62%; left: 70%;" aria-label="Paramedic"></button>
+    <button class="pin" style="top: 65%; left: 80%;" aria-label="Street Vendor"></button>
+    <!-- Add more pins as needed -->
+  </div>
+  <!-- Modal for content -->
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+</section>
+<style>
+  .interactive-map-section {
+    width: 100vw;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0;
+    position: relative;
+  }
+  .interactive-map {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .background-img {
+    width: 100%;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .pin {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #ffd460;
+    border: 2px solid #e94560;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 2;
+  }
+  .pin:hover, .pin:focus {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px #e94560;
+  }
+  .modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+  }
+  .modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .mindmap-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .mindmap-node {
+    cursor: pointer;
+    pointer-events: all;
+    transition: filter 0.2s;
+  }
+  .mindmap-node:hover {
+    filter: drop-shadow(0 0 8px #e94560);
+  }
+  .mindmap-label {
+    font-size: 1rem;
+    font-weight: 600;
+    fill: #23234b;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  #close-mindmap {
+    position: absolute;
+    top: 12px;
+    right: 24px;
+    z-index: 10;
+    font-size: 2rem;
+    background: #ffd460;
+    border: 2px solid #e94560;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    line-height: 36px;
+    text-align: center;
+    padding: 0;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const pins = document.querySelectorAll('.pin');
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.close');
+    
+    pins.forEach(pin => {
+      pin.addEventListener('click', function() {
+        const label = pin.getAttribute('aria-label');
+        modalBody.innerHTML = `<h2>${label}</h2><p>Information about ${label}.</p>`;
+        modal.style.display = 'flex';
+      });
+    });
+
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+  });
+</script>
