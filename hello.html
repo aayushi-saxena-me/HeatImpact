@@ -5,20 +5,16 @@
     Your browser does not support the video tag.
   </video>
 </section>
+
+
 <!-- Interactive Stakeholder Map Section -->
 <section class="interactive-map-section" id="stakeholder-map">
   <div class="interactive-map">
     <img src="Media/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
-    <!-- Pins positioned for likely personas in the image -->
-    <button class="pin" style="top: 65%; left: 8%;" aria-label="Elderly Care"></button>
-    <button class="pin" style="top: 60%; left: 20%;" aria-label="Firefighter"></button>
-    <button class="pin" style="top: 60%; left: 28%;" aria-label="Police Officer"></button>
-    <button class="pin" style="top: 62%; left: 36%;" aria-label="Doctor"></button>
-    <button class="pin" style="top: 62%; left: 48%;" aria-label="Businesswoman"></button>
-    <button class="pin" style="top: 65%; left: 58%;" aria-label="Delivery Worker"></button>
-    <button class="pin" style="top: 62%; left: 70%;" aria-label="Paramedic"></button>
-    <button class="pin" style="top: 65%; left: 80%;" aria-label="Street Vendor"></button>
-    <!-- Add more pins as needed -->
+    <!-- Main Navigation Pins -->
+    <button class="pin infrastructure-pin" style="top: 55%; left: 25%;" aria-label="Firefighter" title="Infrastructure Impact"></button>
+    <button class="pin health-pin" style="top: 60%; left: 50%;" aria-label="Doctor" title="Public Health Impact"></button>
+    <button class="pin process-pin" style="top: 65%; left: 75%;" aria-label="Police Officer" title="Process Impact"></button>
   </div>
   <!-- Modal for content -->
   <div id="modal" class="modal" style="display:none;">
@@ -59,9 +55,29 @@
     transition: transform 0.2s;
     z-index: 2;
   }
-  .pin:hover, .pin:focus {
+  .infrastructure-pin {
+    background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #FF9800;
+    border: 2px solid #F57C00;
+  }
+  .health-pin {
+    background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #2196F3;
+    border: 2px solid #1976D2;
+  }
+  .process-pin {
+    background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #4CAF50;
+    border: 2px solid #388E3C;
+  }
+  .infrastructure-pin:hover, .infrastructure-pin:focus {
     transform: scale(1.2);
-    box-shadow: 0 0 8px #e94560;
+    box-shadow: 0 0 8px #FF9800;
+  }
+  .health-pin:hover, .health-pin:focus {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px #2196F3;
+  }
+  .process-pin:hover, .process-pin:focus {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px #4CAF50;
   }
   .modal {
     position: fixed;
@@ -134,33 +150,44 @@
     pins.forEach(pin => {
       pin.addEventListener('click', function() {
         const label = pin.getAttribute('aria-label');
-        if (label === 'Firefighter') {
-          modalBody.innerHTML = `
-            <h2>${label}</h2>
-            <p>Information about ${label}.</p>
-            <a href="infrastructure.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Infrastructure Impact</a>
-          `;
-        } else if (label === 'Doctor' || label === 'Elderly Care' || label === 'Street Vendor' || label === 'Delivery Worker' || label === 'Businesswoman') {
-          modalBody.innerHTML = `
-            <h2>${label}</h2>
-            <p>Information about ${label}.</p>
-            <a href="public-health.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Public Health Impact</a>
-          `;
-        } else if (label === 'Paramedic') {
-          modalBody.innerHTML = `
-            <h2>${label}</h2>
-            <p>Information about ${label}.</p>
-            <a href="infrastructure.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Infrastructure Impact</a>
-          `;
-        } else if (label === 'Police Officer') {
-          modalBody.innerHTML = `
-            <h2>${label}</h2>
-            <p>Information about ${label}.</p>
-            <a href="processes.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Process Impact</a>
-          `;
-        } else {
-          modalBody.innerHTML = `<h2>${label}</h2><p>Information about ${label}.</p>`;
+        const title = pin.getAttribute('title');
+        
+        let content = '';
+        let linkText = '';
+        let linkUrl = '';
+        let buttonColor = '';
+        
+        switch(label) {
+          case 'Firefighter':
+            content = 'Explore how extreme heat impacts critical infrastructure systems, emergency services, and urban resilience.';
+            linkText = 'Explore Infrastructure Impact';
+            linkUrl = 'infrastructure.html';
+            buttonColor = '#FF9800';
+            break;
+          case 'Doctor':
+            content = 'Discover the public health implications of extreme heat on vulnerable populations and healthcare systems.';
+            linkText = 'Explore Public Health Impact';
+            linkUrl = 'public-health.html';
+            buttonColor = '#2196F3';
+            break;
+          case 'Police Officer':
+            content = 'Learn about how extreme heat affects operational processes, emergency response, and public safety systems.';
+            linkText = 'Explore Process Impact';
+            linkUrl = 'processes.html';
+            buttonColor = '#4CAF50';
+            break;
+          default:
+            content = `Information about ${label}.`;
+            linkText = 'Learn More';
+            linkUrl = '#';
+            buttonColor = '#e94560';
         }
+        
+        modalBody.innerHTML = `
+          <h2>${title}</h2>
+          <p>${content}</p>
+          <a href="${linkUrl}" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: ${buttonColor}; color: white; text-decoration: none; border-radius: 8px;">${linkText}</a>
+        `;
         modal.style.display = 'flex';
       });
     });
@@ -169,3 +196,19 @@
     window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
   });
 </script>
+
+<!-- Navigation Footer -->
+<footer style="background: #f8f9fa; padding: 2rem; margin-top: 3rem; border-radius: 8px; text-align: center;">
+    <h3 style="margin-bottom: 1rem; color: #333;">Navigate to Different Sections</h3>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+        <a href="Main.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;">🏠 Main Page</a>
+        <a href="infrastructure.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #FF9800; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;">🏗️ Infrastructure</a>
+        <a href="public-health.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #2196F3; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;">🏥 Public Health</a>
+        <a href="processes.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;">⚙️ Processes</a>
+    </div>
+</footer>
+
+<!-- Copyright Footer -->
+<footer style="background: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem;">
+    <p>&copy; 2025 Impact of Heat Project. All rights reserved.</p>
+</footer>

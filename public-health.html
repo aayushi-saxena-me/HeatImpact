@@ -31,14 +31,162 @@
         .back-btn:hover {
             background: #d13a4f;
         }
+        
+        /* Interactive Map Styles */
+        .interactive-map-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0;
+            position: relative;
+        }
+        .interactive-map {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .background-img {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .pin {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #4CAF50;
+            border: 2px solid #2E7D32;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 2;
+        }
+        .health-pin {
+            background: url('https://cdn-icons-png.flaticon.com/512/684/684908.png') no-repeat center/contain, #2196F3;
+            border: 2px solid #1976D2;
+        }
+        .pin:hover, .pin:focus {
+            transform: scale(1.2);
+            box-shadow: 0 0 8px #2196F3;
+        }
+        .modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pins = document.querySelectorAll('.pin');
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeBtn = document.querySelector('.close');
+            
+            pins.forEach(pin => {
+                pin.addEventListener('click', function() {
+                    const label = pin.getAttribute('aria-label');
+                    const title = pin.getAttribute('title');
+                    
+                    // Create different content for each public health pin
+                    let content = '';
+                    let linkText = '';
+                    let linkUrl = '';
+                    
+                    switch(label) {
+                        case 'Doctor':
+                            content = 'Healthcare professionals face increased challenges during heat waves, including higher patient loads and emergency response demands.';
+                            linkText = 'Explore Healthcare Impact';
+                            linkUrl = 'healthcare-professionals.html';
+                            break;
+                        case 'Elderly Care':
+                            content = 'Elderly populations are particularly vulnerable to heat-related illnesses and require special attention during extreme heat events.';
+                            linkText = 'Explore Vulnerable Populations';
+                            linkUrl = 'vulnerable-populations.html';
+                            break;
+                        case 'Street Vendor':
+                            content = 'Outdoor workers like street vendors are at high risk of heat stress and need protection measures during hot weather.';
+                            linkText = 'Explore Outdoor Workers';
+                            linkUrl = 'outdoor-workers.html';
+                            break;
+                        case 'Delivery Worker':
+                            content = 'Essential workers including delivery personnel face increased health risks during extreme heat conditions.';
+                            linkText = 'Explore Essential Workers';
+                            linkUrl = 'essential-workers.html';
+                            break;
+                        case 'Businesswoman':
+                            content = 'Urban professionals may experience heat-related stress and productivity impacts during extreme weather events.';
+                            linkText = 'Explore Urban Professionals';
+                            linkUrl = 'urban-professionals.html';
+                            break;
+                        default:
+                            content = `Information about ${label}.`;
+                            linkText = 'Learn More';
+                            linkUrl = 'public-health.html';
+                    }
+                    
+                    modalBody.innerHTML = `
+                        <h2>${label}</h2>
+                        <p><strong>${title}</strong></p>
+                        <p>${content}</p>
+                        <a href="${linkUrl}" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #2196F3; color: white; text-decoration: none; border-radius: 8px;">${linkText}</a>
+                    `;
+                    modal.style.display = 'flex';
+                });
+            });
+
+            closeBtn.onclick = () => modal.style.display = 'none';
+            window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <a href="hello.html" class="back-btn">← Back to Map</a>
         <h1>Impact of Heat on Public Health</h1>
         <p>This page will show the impact of extreme heat on public health.</p>
-        <!-- Future content will go here -->
+        
+        <!-- Interactive Stakeholder Map Section -->
+        <div class="interactive-map-section" id="stakeholder-map">
+            <div class="interactive-map">
+                <img src="Media/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
+                <!-- Public Health Pins -->
+                <button class="pin health-pin" style="top: 62%; left: 36%;" aria-label="Doctor" title="Doctor - Healthcare Professional"></button>
+                <button class="pin health-pin" style="top: 65%; left: 8%;" aria-label="Elderly Care" title="Elderly Care - Vulnerable Population"></button>
+                <button class="pin health-pin" style="top: 65%; left: 80%;" aria-label="Street Vendor" title="Street Vendor - Outdoor Worker"></button>
+                <button class="pin health-pin" style="top: 65%; left: 58%;" aria-label="Delivery Worker" title="Delivery Worker - Essential Worker"></button>
+                <button class="pin health-pin" style="top: 62%; left: 48%;" aria-label="Businesswoman" title="Businesswoman - Urban Professional"></button>
+            </div>
+            <!-- Modal for content -->
+            <div id="modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="modal-body"></div>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Copyright Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem;">
+        <p>&copy; 2025 Impact of Heat Project. All rights reserved.</p>
+    </footer>
 </body>
 </html> 
