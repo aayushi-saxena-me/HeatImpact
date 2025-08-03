@@ -134,7 +134,33 @@
     pins.forEach(pin => {
       pin.addEventListener('click', function() {
         const label = pin.getAttribute('aria-label');
-        modalBody.innerHTML = `<h2>${label}</h2><p>Information about ${label}.</p>`;
+        if (label === 'Firefighter') {
+          modalBody.innerHTML = `
+            <h2>${label}</h2>
+            <p>Information about ${label}.</p>
+            <a href="infrastructure.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Infrastructure Impact</a>
+          `;
+        } else if (label === 'Doctor' || label === 'Elderly Care' || label === 'Street Vendor' || label === 'Delivery Worker' || label === 'Businesswoman') {
+          modalBody.innerHTML = `
+            <h2>${label}</h2>
+            <p>Information about ${label}.</p>
+            <a href="public-health.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Public Health Impact</a>
+          `;
+        } else if (label === 'Paramedic') {
+          modalBody.innerHTML = `
+            <h2>${label}</h2>
+            <p>Information about ${label}.</p>
+            <a href="infrastructure.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Infrastructure Impact</a>
+          `;
+        } else if (label === 'Police Officer') {
+          modalBody.innerHTML = `
+            <h2>${label}</h2>
+            <p>Information about ${label}.</p>
+            <a href="processes.html" class="btn" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background: #e94560; color: white; text-decoration: none; border-radius: 8px;">Learn About Process Impact</a>
+          `;
+        } else {
+          modalBody.innerHTML = `<h2>${label}</h2><p>Information about ${label}.</p>`;
+        }
         modal.style.display = 'flex';
       });
     });
