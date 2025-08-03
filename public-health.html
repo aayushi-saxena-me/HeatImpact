@@ -136,30 +136,20 @@
                     let linkUrl = '';
                     
                     switch(label) {
-                        case 'Doctor':
-                            content = 'Healthcare professionals face increased challenges during heat waves, including higher patient loads and emergency response demands.';
-                            linkText = 'Explore Healthcare Impact';
-                            linkUrl = 'healthcare-professionals.html';
+                        case 'Children and Animals':
+                            content = 'Children and animals are particularly vulnerable to extreme heat due to their limited ability to regulate body temperature and communicate discomfort.';
+                            linkText = 'Explore Children and Animals Impact';
+                            linkUrl = 'children-animals.html';
                             break;
-                        case 'Elderly Care':
-                            content = 'Elderly populations are particularly vulnerable to heat-related illnesses and require special attention during extreme heat events.';
-                            linkText = 'Explore Vulnerable Populations';
-                            linkUrl = 'vulnerable-populations.html';
+                        case 'Elderly People':
+                            content = 'Elderly populations face increased health risks during heat waves, including dehydration, heat exhaustion, and exacerbation of existing conditions.';
+                            linkText = 'Explore Elderly People Impact';
+                            linkUrl = 'elderly-people.html';
                             break;
-                        case 'Street Vendor':
-                            content = 'Outdoor workers like street vendors are at high risk of heat stress and need protection measures during hot weather.';
-                            linkText = 'Explore Outdoor Workers';
-                            linkUrl = 'outdoor-workers.html';
-                            break;
-                        case 'Delivery Worker':
-                            content = 'Essential workers including delivery personnel face increased health risks during extreme heat conditions.';
-                            linkText = 'Explore Essential Workers';
-                            linkUrl = 'essential-workers.html';
-                            break;
-                        case 'Businesswoman':
-                            content = 'Urban professionals may experience heat-related stress and productivity impacts during extreme weather events.';
-                            linkText = 'Explore Urban Professionals';
-                            linkUrl = 'urban-professionals.html';
+                        case 'Outdoors':
+                            content = 'Outdoor activities and workers face significant health challenges during extreme heat, requiring special protection and adaptation measures.';
+                            linkText = 'Explore Outdoor Activities Impact';
+                            linkUrl = 'outdoor-activities.html';
                             break;
                         default:
                             content = `Information about ${label}.`;
@@ -195,13 +185,11 @@
         <!-- Interactive Stakeholder Map Section -->
         <div class="interactive-map-section" id="stakeholder-map">
             <div class="interactive-map">
-                <img src="Media/ImpactofHeat1.png" alt="Stakeholder Scene" class="background-img" />
+                <img src="Media/Public Health.png" alt="Public Health Stakeholder Scene" class="background-img" />
                 <!-- Public Health Pins -->
-                <button class="pin health-pin" style="top: 62%; left: 36%;" aria-label="Doctor" title="Doctor - Healthcare Professional"></button>
-                <button class="pin health-pin" style="top: 65%; left: 8%;" aria-label="Elderly Care" title="Elderly Care - Vulnerable Population"></button>
-                <button class="pin health-pin" style="top: 65%; left: 80%;" aria-label="Street Vendor" title="Street Vendor - Outdoor Worker"></button>
-                <button class="pin health-pin" style="top: 65%; left: 58%;" aria-label="Delivery Worker" title="Delivery Worker - Essential Worker"></button>
-                <button class="pin health-pin" style="top: 62%; left: 48%;" aria-label="Businesswoman" title="Businesswoman - Urban Professional"></button>
+                <button class="pin health-pin" style="top: 25%; left: 30%;" aria-label="Children and Animals" title="Children and Animals - Vulnerable Populations"></button>
+                <button class="pin health-pin" style="top: 25%; left: 70%;" aria-label="Elderly People" title="Elderly People - Vulnerable Populations"></button>
+                <button class="pin health-pin" style="top: 70%; left: 50%;" aria-label="Outdoors" title="Outdoors - Outdoor Activities"></button>
             </div>
             <!-- Modal for content -->
             <div id="modal" class="modal" style="display:none;">
