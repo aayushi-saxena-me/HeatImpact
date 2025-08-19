@@ -136,8 +136,8 @@
                     let linkUrl = '';
                     
                     switch(label) {
-                        case 'Children':
-                            content = 'Children are particularly vulnerable to extreme heat due to their developing bodies and limited ability to regulate body temperature effectively.';
+                        case 'Children and families':
+                            content = 'Children and families are particularly vulnerable to extreme heat due to their developing bodies and limited ability to regulate body temperature effectively.';
                             linkText = 'Explore Children Impact';
                             linkUrl = 'children.html';
                             break;
@@ -181,8 +181,8 @@
         <!-- Video Section -->
         <div class="video-section" style="padding: 3rem 0; background: #f8f9fa; text-align: center; margin: 2rem -2rem; border-radius: 12px;">
             <div class="section-header" style="margin-bottom: 2rem;">
-                <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; color: #333;">Public Health Video</h2>
-                <p style="font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Watch this informative video about public health impacts of extreme heat and explore the interactive stakeholder map below.</p>
+                <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; color: #333;">Impact of Extreme Heat on Public Health</h2>
+                <p style="font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Watch this introductory video about how extreme heat impacts public health and then scroll down to learn more. .</p>
             </div>
             
             <div class="video-container" style="position: relative; max-width: 800px; margin: 0 auto; padding: 0 2rem;">
@@ -193,14 +193,30 @@
             </div>
         </div>
 
+        <!-- Heat Stress Video Section -->
+        <div class="video-section" style="padding: 3rem 0; background: #f8f9fa; text-align: center; margin: 2rem -2rem; border-radius: 12px;">
+            <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; color: #333;">Heat Stress</h2>
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <p style="font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">Heat Stress occurs when humans’ bodies are unable to cool themselves effectively. Normally sweating takes care of this, but in high humidity, sweat can not evaporate as quickly and could lead to a heat stroke. <br/><br/>
+                    Heat stress is the leading cause of weather-related deaths and can exacerbate underlying illnesses including cardiovascular disease, diabetes, mental health, asthma, and can increase the risk of accidents and transmission of some infectious diseases. <br/><br/>
+                    Extreme temperatures also affect air quality. During particularly hot and sunny days, there can be an increase in the production of ground level ozone—a harmful pollutant—that is the main component of smog. This further leads to increased respiratory conditions. <br/><br/>
+                    According to the 2024 report published by the World Economic Forum, called Quantifying the Impact of Climate Change on Human Health, by 2050, 1.6 million people across the world will die during heat waves. <br/><br/>
+                    <b>References</b> <br/>
+                    Center For Climate and Energy Solutions. (n.d.). Heat Waves and Climate Change - Center for Climate and Energy SolutionsCenter for Climate and Energy Solutions. C2ES. Retrieved August 16, 2025, from https://www.c2es.org/content/heat-waves-and-climate-change/  <br/><br/>
+                    OSHA Education School. (2025, July 4). Important Heat Stress Statistics To Know In 2025. OSHA. Retrieved August 16, 2025, from https://blog.oshaeducationschool.com/heat-stress-statistics/ <br/><br/>
+                    World Meteorological Organization. (2023, September 21). Climate change and heatwaves. World Meteorological Organization WMO. Retrieved August 16, 2025, from https://wmo.int/content/climate-change-and-heatwaves.</p>
+            </div>
+            
+        </div>
+
         <!-- Interactive Stakeholder Map Section -->
         <div class="interactive-map-section" id="stakeholder-map">
             <div class="interactive-map">
                 <img src="Media/HeatImpactMainImage.png" alt="Heat Impact Main Stakeholder Scene" class="background-img" />
                 <!-- Public Health Pins -->
-                <button class="pin health-pin" style="top: 25%; left: 15%;" aria-label="Children" title="Children - Vulnerable Populations"></button>
+                <button class="pin health-pin" style="top: 25%; left: 15%;" aria-label="Children and families" title="Children and families - Vulnerable Populations"></button>
                 <button class="pin health-pin" style="top: 25%; left: 40%;" aria-label="Elderly People" title="Elderly People - Vulnerable Populations"></button>
-                <button class="pin health-pin" style="top: 70%; left: 50%;" aria-label="Outdoors" title="Outdoors - Outdoor Activities"></button>
+                <button class="pin health-pin" style="top: 70%; left: 50%;" aria-label="Outdoors" title="Outdoor Services & Gatherings"></button>
             </div>
             <!-- Modal for content -->
             <div id="modal" class="modal" style="display:none;">
