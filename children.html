@@ -79,6 +79,46 @@
             margin: 1rem 0;
         }
     </style>
+    <script>
+        // Progress tracking functions with error handling
+        function isLocalStorageAvailable() {
+            try {
+                const test = 'test';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        function getProgress() {
+            try {
+                if (!isLocalStorageAvailable()) {
+                    return { pinsClicked: [], localStorageFailed: true };
+                }
+                const progress = localStorage.getItem('heatImpactProgress');
+                return progress ? JSON.parse(progress) : { pinsClicked: [] };
+            } catch(e) {
+                console.warn('Failed to get progress from localStorage:', e);
+                return { pinsClicked: [], localStorageFailed: true };
+            }
+        }
+
+        function checkCompletionStatus() {
+            try {
+                const progress = getProgress();
+                // No automatic redirection - user will see the button on hello.html when complete
+            } catch(e) {
+                console.warn('Failed to check completion status:', e);
+            }
+        }
+
+        // Check completion status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            checkCompletionStatus();
+        });
+    </script>
 </head>
 <body>
     <!-- Page Header -->

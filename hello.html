@@ -58,8 +58,19 @@
   </div>
 </section>
 
-<!-- Interactive Stakeholder Map Section -->
-<section class="interactive-map-section" id="stakeholder-map">
+        <!-- Progress Indicator -->
+        <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-weight: 600; color: #333;">Your Progress:</span>
+                <span id="progress-text" style="color: #666; font-size: 0.9rem;">0/6 pins clicked (0%)</span>
+            </div>
+            <div style="background: #e9ecef; border-radius: 4px; height: 8px; overflow: hidden;">
+                <div id="progress-bar" style="background: linear-gradient(90deg, #e94560, #ffd460); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+
+        <!-- Interactive Stakeholder Map Section -->
+        <section class="interactive-map-section" id="stakeholder-map">
   <div class="interactive-map">
     <img src="Media/MapImage.png" alt="Heat Impact Interactive Map" class="background-img" />
     <!-- Main Navigation Pins -->
@@ -197,16 +208,134 @@
   }
 </style>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const pins = document.querySelectorAll('.pin');
-    const modal = document.getElementById('modal');
-    const modalBody = document.getElementById('modal-body');
-    const closeBtn = document.querySelector('.close');
-    
-    pins.forEach(pin => {
-      pin.addEventListener('click', function() {
-        const label = pin.getAttribute('aria-label');
-        const title = pin.getAttribute('title');
+          // Progress tracking functions with error handling
+        function isLocalStorageAvailable() {
+            try {
+                const test = 'test';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        function getProgress() {
+            try {
+                if (!isLocalStorageAvailable()) {
+                    return { pinsClicked: [], localStorageFailed: true };
+                }
+                const progress = localStorage.getItem('heatImpactProgress');
+                return progress ? JSON.parse(progress) : { pinsClicked: [] };
+            } catch(e) {
+                console.warn('Failed to get progress from localStorage:', e);
+                return { pinsClicked: [], localStorageFailed: true };
+            }
+        }
+
+        function markPinAsClicked(pinId) {
+            try {
+                const progress = getProgress();
+                if (progress.localStorageFailed) {
+                    // If localStorage failed, just show the CTA button
+                    updateCallToActionButton(true);
+                    return;
+                }
+                
+                if (!progress.pinsClicked.includes(pinId)) {
+                    progress.pinsClicked.push(pinId);
+                    localStorage.setItem('heatImpactProgress', JSON.stringify(progress));
+                    checkCompletionStatus();
+                }
+            } catch(e) {
+                console.warn('Failed to mark pin as clicked:', e);
+                // If marking fails, show CTA button anyway
+                updateCallToActionButton(true);
+            }
+        }
+
+        function checkCompletionStatus() {
+            try {
+                const progress = getProgress();
+                
+                if (progress.localStorageFailed) {
+                    // If localStorage failed, show CTA button and hide progress indicator
+                    updateCallToActionButton(true);
+                    hideProgressIndicator();
+                    return;
+                }
+                
+                const allPins = ['infrastructure', 'public-health', 'processes', 'children', 'elderly', 'outdoors'];
+                const isComplete = allPins.every(pin => progress.pinsClicked.includes(pin));
+                
+                // Update progress indicator
+                updateProgressIndicator(progress.pinsClicked.length, allPins.length);
+                
+                // Show/hide call-to-action button
+                updateCallToActionButton(isComplete);
+            } catch(e) {
+                console.warn('Failed to check completion status:', e);
+                // If checking fails, show CTA button anyway
+                updateCallToActionButton(true);
+                hideProgressIndicator();
+            }
+        }
+
+        function updateCallToActionButton(isComplete) {
+            const ctaButton = document.getElementById('call-to-action-btn');
+            if (ctaButton) {
+                ctaButton.style.display = isComplete ? 'inline-block' : 'none';
+            }
+        }
+
+        function updateProgressIndicator(clicked, total) {
+            try {
+                const percentage = Math.round((clicked / total) * 100);
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                
+                if (progressBar && progressText) {
+                    progressBar.style.width = percentage + '%';
+                    progressText.textContent = `${clicked}/${total} pins clicked (${percentage}%)`;
+                }
+            } catch(e) {
+                console.warn('Failed to update progress indicator:', e);
+            }
+        }
+
+        function hideProgressIndicator() {
+            try {
+                const progressContainer = document.querySelector('[style*="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;"]');
+                if (progressContainer) {
+                    progressContainer.style.display = 'none';
+                }
+            } catch(e) {
+                console.warn('Failed to hide progress indicator:', e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const pins = document.querySelectorAll('.pin');
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeBtn = document.querySelector('.close');
+            
+            // Check completion status when page loads
+            checkCompletionStatus();
+            
+            pins.forEach(pin => {
+                pin.addEventListener('click', function() {
+                    const label = pin.getAttribute('aria-label');
+                    const title = pin.getAttribute('title');
+                    
+                    // Mark pin as clicked based on label
+                    let pinId = '';
+                    switch(label) {
+                        case 'Firefighter': pinId = 'infrastructure'; break;
+                        case 'Doctor': pinId = 'public-health'; break;
+                        case 'Police Officer': pinId = 'processes'; break;
+                    }
+                    markPinAsClicked(pinId);
         
         let content = '';
         let linkText = '';
@@ -260,6 +389,7 @@
         <a href="infrastructure.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #FF9800; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;"><i class="fas fa-building"></i> Infrastructure</a>
         <a href="public-health.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #2196F3; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;"><i class="fas fa-heartbeat"></i> Public Health</a>
         <a href="processes.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.3s;"><i class="fas fa-cogs"></i> Processes</a>
+        <a id="call-to-action-btn" href="call-to-action.html" style="display: none; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #e94560, #ffd460); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);"><i class="fas fa-star"></i> Take Action!</a>
     </div>
 </footer>
 
