@@ -74,23 +74,19 @@
         <div id="modal-body"></div>
       </div>
     </div>
-                     <!-- Progress Indicator -->
-    <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <span style="font-weight: 600; color: #333;">Your Progress:</span>
-        <span id="progress-text" style="color: #666; font-size: 0.9rem;">0/6 pins clicked (0%)</span>
-    </div>
-    <div style="background: #e9ecef; border-radius: 4px; height: 8px; overflow: hidden;">
-        <div id="progress-bar" style="background: linear-gradient(90deg, #e94560, #ffd460); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
-    </div>
-    
-    <!-- Testing Buttons -->
-    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e9ecef;">
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button onclick="resetProgressForTesting()" style="background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Reset Progress</button>
-        </div>
-    </div>
-</div>
+                          <!-- Progress Indicator -->
+     <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+         <span style="font-weight: 600; color: #333;">Your Progress:</span>
+         <div style="display: flex; align-items: center; gap: 1rem;">
+                           <span id="progress-text" style="color: #666; font-size: 0.9rem;">0/6 pins clicked (0%)</span>
+              <button onclick="resetProgressForTesting()" style="display: none; background: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Reset Progress</button>
+         </div>
+     </div>
+     <div style="background: #e9ecef; border-radius: 4px; height: 8px; overflow: hidden;">
+         <div id="progress-bar" style="background: linear-gradient(90deg, #e94560, #ffd460); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+     </div>
+ </div>
 
          
 </section>
@@ -301,10 +297,16 @@
                 const percentage = Math.round((clicked / total) * 100);
                 const progressBar = document.getElementById('progress-bar');
                 const progressText = document.getElementById('progress-text');
+                const resetButton = document.querySelector('button[onclick="resetProgressForTesting()"]');
                 
                 if (progressBar && progressText) {
                     progressBar.style.width = percentage + '%';
                     progressText.textContent = `${clicked}/${total} pins clicked (${percentage}%)`;
+                }
+                
+                // Show/hide reset button based on progress
+                if (resetButton) {
+                    resetButton.style.display = clicked > 0 ? 'inline-block' : 'none';
                 }
             } catch(e) {
                 console.warn('Failed to update progress indicator:', e);
